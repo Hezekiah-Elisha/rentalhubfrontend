@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 
 export default function Footer() {
   return (
-    <footer>
+    <footer className="font-poppins">
         <div className='bg-gray-200 p-4 text-center'>
             <div>
               &copy; 
