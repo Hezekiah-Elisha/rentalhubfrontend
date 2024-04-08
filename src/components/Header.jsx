@@ -1,10 +1,43 @@
 import { Link } from "react-router-dom";
 import { MagnifyingGlassIcon, Bars3BottomRightIcon, XMarkIcon } from "@heroicons/react/20/solid";
 import { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
+import { logout } from "../redux/user/userSlice";
+import { useDispatch } from "react-redux";
+
 
 export default function Header() {
+  const dispatch = useDispatch();
+  const { currentUser } = useSelector((state) => state.user);
+
+  // console.log(currentUser.user.name);
+
+  const tologout = () => {
+    dispatch(logout())
+  }
+
+
+
   const [isOpen, setIsOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
+
+  const loginLinks = <div className="flex gap-2">
+          <Link to="/signin" className="hover:underline">
+            Login
+          </Link>
+          <Link to="/signup" className="hover:underline">
+            Sign Up
+          </Link>
+        </div>
+
+  const loggedInLinks = <div className="flex gap-2">
+          <Link to="/dashboard" className="hover:underline">
+            Dashboard
+          </Link>
+          <p onClick={tologout} className="hover:cursor-pointer hover:underline">
+            Logout
+          </p>
+        </div>
 
   const handleResize = () => {
     if (window.innerWidth > 1024) {
@@ -38,7 +71,7 @@ export default function Header() {
       <div className="flex bg-green-700 p-2 rounded-full">
         <input
           type="text"
-          className="rounded-full border-none outline-none bg-green-700 px-4 text-white placeholder:text-white text-xl"
+          className="rounded-full border-none outline-none bg-green-700 px-4 text-white placeholder:text-white placeholder:text-sm placeholder:font-thin placeholder:font-poppins font-poppins text-sm"
           placeholder="Search house here"
         />
         <MagnifyingGlassIcon className="h-6 w-6 text-white hover:cursor-pointer" />
@@ -48,6 +81,25 @@ export default function Header() {
           {isOpen ? <XMarkIcon className="h-6 w-6 text-white" /> : <Bars3BottomRightIcon className="h-6 w-6 text-white" />}
         </button>
       </div>
+      <div className={`${!isOpen ? "block" : "hidden"}`}>
+        {isOpen ? (
+          null
+        ) : 
+            <div className="flex lg:flex flex-row justify-center items-center h-full gap-2 sm:hidden ">
+              <Link to="/about" className="hover:underline">
+                About
+              </Link>
+              <Link to="/contact" className="hover:underline">
+                Contact
+              </Link>
+              {currentUser ? (
+                loggedInLinks
+              ) : (
+                loginLinks
+              )}
+            </div>
+      }
+      </div>
       <div className={`flex lg:flex-col font-poppins flex-row justify-between w-1/2 ${isOpen ? "block" : "hidden"}`}>
         <Link to="/about" className="hover:underline">
           About
@@ -55,9 +107,11 @@ export default function Header() {
         <Link to="/contact" className="hover:underline">
           Contact
         </Link>
-        <Link to="/login" className="hover:underline">
-          Login
-        </Link>
+        {currentUser ? (
+          loggedInLinks
+        ) : (
+          loginLinks
+        )}
       </div>
     </div>
   );
