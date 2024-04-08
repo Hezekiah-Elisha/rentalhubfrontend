@@ -8,12 +8,12 @@ export default function DashboardPage() {
 
 
     return (
-        <div className="flex flex-col items-center justify-center">
+        <div className="flex flex-col h-screen">
             <DashboardHeader />
-            <div className="flex flex-row w-full">
+            <div className="flex flex-row w-full h-full">
                 <SideNav />
                 { navigation.state === 'loading' && "Loading..."}
-                <Outlet />
+                <Outlet className="" />
             </div>
         </div>
     )

@@ -7,6 +7,7 @@ import Footer from './Footer'
 import Header from './Header'
 import SignupPage from '../pages/SignupPage'
 import DashboardPage from '../pages/DashboardPage'
+import PostPropertyPage from '../pages/PostPropertyPage'
 
 export default function MainComponent() {
     const location = useLocation()
@@ -30,6 +31,7 @@ export default function MainComponent() {
                 <Route path='/signup' element={<SignupPage/>}/>
                 <Route path='/dashboard' element={<DashboardPage/>}>
                     <Route path='*' element={<NotFound/>}/>
+                    <Route path='/dashboard/postproperty' element={<PostPropertyPage/>}/>
                 </Route>
             </Routes>
             {!isSignin && <Footer/>}
