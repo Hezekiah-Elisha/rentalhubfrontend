@@ -17,10 +17,10 @@ export default function HomePage() {
   
   useEffect(() => {
     dispatch(getPropertiesStart())
-    instance.get('/properties')
+    instance.get('/listings')
       .then((response) => {
-        dispatch(getPropertiesSuccess(response.data.properties))
-        // console.log(response.data.properties)
+        dispatch(getPropertiesSuccess(response.data))
+        console.log(response)
       })
       .catch((err) => {
         dispatch(getPropertiesFailure(err.message))
@@ -34,17 +34,18 @@ export default function HomePage() {
         <div className='grid grid-cols-1 sm:grid-col-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 p-4 mt-10 items-center'>
           {loading && <p>Loading...</p>}
           {error && <p>{error.message}</p>}
-          {properties && properties.map(property => (
+          {properties && properties.length > 0 ? properties.map(property => (
             <PropertyTile 
               key={property.id} 
               id={property.id} 
-              name={property.name} 
+              name={property.title} 
               price={property.price} 
               location={property.location} 
               image={`http://localhost:3000/${property.image}`} 
-              tags={stringToArray(property.tags)}
+              // tags={stringToArray(property.tags)}
              />
-          ))}
+          )): <p>No properties found</p>
+          }
 
           {/* <PropertyTile />
           <PropertyTile />
