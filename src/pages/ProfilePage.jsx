@@ -28,9 +28,11 @@ export default function ProfilePage() {
   return (
     <div className='font-poppins w-full p-5'>
       <div className=' border border-blue-950 p-5 w-full rounded-lg bg-blue-950 text-white'>
-        <h2 className='text-3xl font-bold capitalize'>{user.name}</h2>
-        <p className='text-lg'>{user.email}</p>
-        <p className='text-lg text-green-400'> Member for {getMembershipDuration(user.created_at)}</p>
+        <div className='flex flex-row w-full align-middle justify-between items-center'>
+          <h2 className='text-3xl font-bold capitalize'>{user.name}</h2>
+          <p className='text-lg text-green-400'> Member for {getMembershipDuration(user.created_at)}</p>
+        </div>
+        <p className='text-lg'>{user.email} <span className='bg-green-400 rounded-full px-2'>{user.role}</span> </p>
       </div>
     </div>
   )

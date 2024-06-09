@@ -26,6 +26,9 @@ export const singlePropertySlice = createSlice({
     name: 'property',
     initialState,
     reducers: {
+        createPropertyStart: startAction,
+        createPropertySuccess: successAction,
+        createPropertyFailure: failureAction,
         getPropertyStart: startAction,
         getPropertySuccess: successAction,
         getPropertyFailure: failureAction,
@@ -38,5 +41,5 @@ export const singlePropertySlice = createSlice({
     }
 });
 
-export const { getPropertyStart, getPropertySuccess, getPropertyFailure, updatePropertyStart, updatePropertySuccess, updatePropertyFailure, deletePropertyStart, deletePropertySuccess, deletePropertyFailure } = singlePropertySlice.actions;
+export const { createPropertyStart, createPropertySuccess, createPropertyFailure, getPropertyStart, getPropertySuccess, getPropertyFailure, updatePropertyStart, updatePropertySuccess, updatePropertyFailure, deletePropertyStart, deletePropertySuccess, deletePropertyFailure } = singlePropertySlice.actions;
 export default singlePropertySlice.reducer;
