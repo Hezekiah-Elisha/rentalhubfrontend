@@ -1,6 +1,6 @@
-import React, {useEffect } from 'react'
+import {useEffect } from 'react'
 import {Link, useParams} from "react-router-dom";
-import house from "../assets/house.jpg"
+// import house from "../assets/house.jpg"
 import { instance } from "../api";
 import { getPropertyStart, getPropertySuccess, getPropertyFailure } from '../redux/properties/singlePropertySlice';
 import bed from "../assets/bed.svg"

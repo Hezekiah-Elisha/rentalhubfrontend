@@ -1,23 +1,56 @@
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
+import { instance } from '../api'
+import { useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { signupStart, signupSuccess, signupFailure } from '../redux/user/userSlice'
 
 export default function SignupPage() {
+  const [formData, setFormData] = useState({})
+  const { loading, error } = useSelector((state) => state.user)
+  const [hasSubmitted, setHasSubmitted] = useState(false);
+    const dispatch = useDispatch()
+    const navigate = useNavigate()
+
+    const handleChange = async (e) => {
+        setFormData({ ...formData, [e.target.id]: e.target.value })
+    }
+
+    const handleSubmit = async (e) => {
+        e.preventDefault()
+        dispatch(signupStart())
+        setHasSubmitted(true)
+        try {
+            const response = await instance.post(
+                '/users/auth/register',
+                formData
+            )
+            dispatch(signupSuccess())
+            console.log(response.data)
+            navigate('/signin')
+        } catch (ee) {
+            dispatch(signupFailure(ee.response.data.message))
+            console.log(ee.response.data.message)
+        }
+    }
+
     return (
         <div className='font-poppins flex flex-col-reverse md:flex-row'>
           <div className="p-3 mx-auto md:w-1/2 flex flex-col">
             <h1 className="text-3xl text-center font-semibold my-7 uppercase">Sign Up</h1>
-            <form className="flex flex-col gap-4 md:w-4/5 m-auto">
-              <input type="text" placeholder='Full Name' className="bg-slate-100 p-3 rounded-lg" />
-              <input type="email" placeholder="email" id="email" className="bg-slate-100 p-3 rounded-lg" />
-              <input type="password" placeholder="Password" id="password" className="bg-slate-100 p-3 rounded-lg" />
+            <form onSubmit={handleSubmit} className="flex flex-col gap-4 md:w-4/5 m-auto">
+              <input type="text" onChange={handleChange} placeholder='Full Name' id='name' className="bg-slate-100 p-3 rounded-lg" />
+              <input type="email" placeholder="email" onChange={handleChange} id="email" className="bg-slate-100 p-3 rounded-lg" />
+              <input type="password" placeholder="Password" onChange={handleChange} id="password" className="bg-slate-100 p-3 rounded-lg" />
               <button className="bg-blue-950 text-white p-3 rounded-lg uppercase hover:opacity-95 disabled:opacity-55">
-                Sign Up
+              { loading ? 'Loading...' : 'Sign Up'}
               </button>
+              {error  && hasSubmitted && <p className="text-red-500 mt-5">{error}</p>}
             </form>
             <div className='flex items-center justify-center gap-2 mt-5 text-center'>
               <p>Already have an account?</p>
               <Link to="/signin" className="text-slate-700 font-semibold">
                 <span className='text-blue-500'>
-                  Sign In
+                  Signin
                 </span>
               </Link>
             </div>

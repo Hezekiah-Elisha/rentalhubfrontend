@@ -7,6 +7,7 @@ import { loginStart, loginSuccess, loginFailure } from '../redux/user/userSlice'
 export default function LoginPage() {
   const [formData, setFormData] = useState({})
   const { loading, error } = useSelector((state) => state.user)
+  const [hasSubmitted, setHasSubmitted] = useState(false);
   const navigate = useNavigate()
   const dispatch = useDispatch()
 
@@ -17,13 +18,19 @@ export default function LoginPage() {
   const handleSubmit = async (e) => {
     e.preventDefault()
     dispatch(loginStart())
+    setHasSubmitted(true)
+
     try {
-      const response = await instance.post('/auth/login', formData)
+      const response = await instance.post(
+        '/users/auth/login',
+         formData
+      )
       dispatch(loginSuccess(response.data))
+      console.log(response.data)
       navigate('/')
     } catch (ee) {
-      dispatch(loginFailure(ee.message))
-      // console.log(ee.response.data.message)
+      dispatch(loginFailure(ee.response.data.message))
+      console.log(ee.response.data.message)
     }
   }
 
@@ -38,12 +45,13 @@ export default function LoginPage() {
           <button className="bg-blue-950 text-white p-3 rounded-lg uppercase hover:opacity-95 disabled:opacity-55">
             {loading ? 'Loading...' : 'Sign In'}
           </button>
+          {error  && hasSubmitted && <p className="text-red-500 mt-5">{error}</p>}
         </form>
-        <p className="text-red-500 mt-5">
+        {/* <p className="text-red-500 mt-5">
           {
             error ? error.message : 'Something Went Wrong!'  
           }
-        </p>
+        </p> */}
         <div className='flex items-center justify-center gap-2 mt-5 text-center'>
           <p>Don&apos;t have an account yet?</p>
           <Link to="/signup" className="text-slate-700 font-semibold">

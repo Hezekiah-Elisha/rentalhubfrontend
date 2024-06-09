@@ -29,8 +29,20 @@ const userSlice = createSlice({
             state.error = false;
             localStorage.removeItem('user');
         },
+        signupStart: (state) => {
+            state.loading = true;
+            state.error = false;
+        },
+        signupSuccess: (state) => {
+            state.loading = false;
+            state.error = false;
+        },
+        signupFailure: (state, action) => {
+            state.loading = false;
+            state.error = action.payload;
+        }
     }
 });
 
-export const { loginStart, loginSuccess, loginFailure, logout } = userSlice.actions;
+export const { loginStart, loginSuccess, loginFailure, logout, signupStart, signupSuccess, signupFailure } = userSlice.actions;
 export default userSlice.reducer;
