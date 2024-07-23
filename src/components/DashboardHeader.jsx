@@ -1,24 +1,62 @@
-import { useSelector } from 'react-redux'
-import { Link } from 'react-router-dom'
+import { 
+  MagnifyingGlassIcon, BellIcon
+} from '@heroicons/react/24/solid'
+import { useDispatch, useSelector } from 'react-redux'
+import { logout } from '../redux/user/userSlice'
+import { instance } from '../api'
+import { useNavigate } from 'react-router-dom'
+import { useEffect } from 'react'
 
-export default function DashboardHeader() {
-  const {currentUser} = useSelector((state) => state.user)
+export default function Header() {
+  const dispatch = useDispatch()
+  const navigate = useNavigate()
+  const { currentUser } = useSelector((state) => state.user)
 
-  const user = currentUser.user
+  useEffect(() => {
+    if (!currentUser) {
+      navigate('/')
+    }
+  }, [currentUser, navigate])
 
+  const handleLogout = async () => {
+    const config = {
+      headers: {
+        'Authorization': `Bearer ${currentUser.access_token}`,
+      },
+    };
+  
+    try {
+      await instance.delete('/logout', config);
+      dispatch(logout());
+      navigate('/');
+    } catch (err) {
+      console.error(err);
+    }
+  };
+  
   return (
-    <nav className='w-full bg-blue-950 font-poppins fixed z-'>
-      <div className="flex items-center justify-between p-4">
-        <div className="flex items-center space-x-4">
-          <Link to="/" className="text-green-500 text-2xl font-bold font-ams hover:underline">The Rental Hub</Link>
-          <a href="/" className="text-white">Dashboard</a>
+    <div>
+      <header className='flex flex-row justify-between items-center w-full p-4 bg-blue-950 text-white border-b-2 border-gray-400 fixed z-20 shadow-xl'>
+        <div className='flex flex-row gap-32 w-full'>
+          <h1 className='text-2xl font-semibold'>Dashboard</h1>
+          <form action="" className='w-1/2'>
+            <div className="relative flex items-center text-white focus-within:text-white gap-2 w-full">
+              <MagnifyingGlassIcon className="absolute ml-3 h-5 w-5" />
+              <input
+                type="text"
+                placeholder="Search"
+                className="bg-slate-100/25 rounded-lg pl-10 p-2 w-1/2 placeholder:text-white focus:outline-none focus:ring-2 focus:ring-grey-500"
+                required
+              />
+            </div>
+          </form>
         </div>
-        <div className="flex items-center space-x-4">
-          <a href="/dashboard/profile" className="text-white capitalize">Hi, {user.name}</a>
-          <a href="/dashboard/settings" className="text-white">Settings</a>
-          <a href="/dashboard/logout" className="text-white">Logout</a>
+        <div className='flex flex-row gap-4'>
+          <BellIcon className='size-6 text-white' />
+          <p>Profile</p>
+          <p onClick={handleLogout} className='cursor-pointer'>Logout</p>
         </div>
-      </div>
-    </nav>
+      </header>
+    </div>
   )
 }
