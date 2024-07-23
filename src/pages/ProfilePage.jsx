@@ -27,7 +27,7 @@ export default function ProfilePage() {
 
   return (
     <div className='font-poppins w-full p-5'>
-      <div className=' border border-blue-950 p-5 w-full rounded-lg bg-blue-950 text-white'>
+      <div className=' border p-5 w-full rounded-lg bg-slate-100 text-blue-950 shadow-lg'>
         <div className='flex flex-row w-full align-middle justify-between items-center'>
           <h2 className='text-3xl font-bold capitalize'>{user.name}</h2>
           <p className='text-lg text-green-400'> Member for {getMembershipDuration(user.created_at)}</p>

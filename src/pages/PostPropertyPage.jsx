@@ -53,7 +53,7 @@ export default function PostPropertyPage() {
             isVisible={modalIsOpen}
             onClose={() => setModalIsOpen(false)}
         />
-        <h1 className='text-3xl text-center'>Post Property</h1>
+        <h1 className='text-3xl text-center font-ams underline p-2'>Post Property</h1>
         <form onSubmit={handleSubmit} encType='multipart/form-data' className='flex flex-col gap-4 w-full'>
             <div className='flex flex-col gap-2'>
                 <label htmlFor='title' className='text-2xl'>Title</label>

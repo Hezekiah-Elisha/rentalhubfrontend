@@ -10,6 +10,7 @@ import DashboardPage from '../pages/DashboardPage'
 import PostPropertyPage from '../pages/PostPropertyPage'
 import ProfilePage from '../pages/ProfilePage'
 import DashHome from '../pages/dashboard/DashHome'
+import CategoryPage from '../pages/CategoryPage'
 
 export default function MainComponent() {
     const location = useLocation()
@@ -36,6 +37,7 @@ export default function MainComponent() {
                     <Route path='*' element={<NotFound/>}/>
                     <Route path='postproperty' element={<PostPropertyPage/>}/>
                     <Route path='profile' element={<ProfilePage/>}/>
+                    <Route path='categories' element={<CategoryPage/>}/>
                 </Route>
             </Routes>
             {!isSignin && <Footer/>}

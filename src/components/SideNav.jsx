@@ -1,9 +1,10 @@
-import { ChartPieIcon, UserPlusIcon, UsersIcon, BanknotesIcon } from "@heroicons/react/24/solid";
+import { ChartPieIcon, UserPlusIcon, UsersIcon, BanknotesIcon, TagIcon } from "@heroicons/react/24/solid";
 import { 
     ChartPieIcon as ChatPieIconOutline,
     UserPlusIcon as UserPlusIconOutline,
     UsersIcon as UsersIconOutline,
-    BanknotesIcon as BanknotesIconOutline
+    BanknotesIcon as BanknotesIconOutline,
+    TagIcon as TagIconOutline
 } from "@heroicons/react/24/outline";
 
 
@@ -28,13 +29,13 @@ export default function SideNav() {
                     {isActive('/dashboard/profile') ? <UsersIcon className="size-6" /> : <UsersIconOutline className="size-6" />}
                     profile
                 </Link>         
-                <Link to='/dashboard/postproperty' className={`p-2 ${isActive('/dashboard/accounts') ? 'bg-green-500' : 'hover:bg-slate-200'} rounded-xl hover:cursor-pointer flex flex-row gap-2`}>
+                <Link to='/dashboard/postproperty' className={`p-2 ${isActive('/dashboard/postproperty') ? 'bg-green-500' : 'hover:bg-slate-200'} rounded-xl hover:cursor-pointer flex flex-row gap-2`}>
                     {isActive('/dashboard/postproperty') ? <BanknotesIcon className="size-6" /> : <BanknotesIconOutline className="size-6" />}
                     Post Property
                 </Link>            
-                <Link to='/dashboard/transactions' className={`p-2 ${isActive('/dashboard/transactions') ? 'bg-green-500' : 'hover:bg-slate-200'} rounded-xl hover:cursor-pointer flex flex-row gap-2`}>
-                    {isActive('/dashboard/transactions') ? <UserPlusIcon className="size-6" /> : <UserPlusIconOutline className="size-6" />}
-                    Transactions
+                <Link to='/dashboard/categories' className={`p-2 ${isActive('/dashboard/categories') ? 'bg-green-500' : 'hover:bg-slate-200'} rounded-xl hover:cursor-pointer flex flex-row gap-2`}>
+                    {isActive('/dashboard/categories') ? <TagIcon className="size-6" /> : <TagIconOutline className="size-6" />}
+                    Categories
                 </Link>                
             </ul>
             <div className="p-4 flex flex-row w-full justify-between">
