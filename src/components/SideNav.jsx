@@ -15,24 +15,24 @@ export default function SideNav() {
     const isActive = (path) => location.pathname === path;
 
     return (
-        <div className="bg-blue-950 text-white h-screen w-64 flex flex-col fixed -z-10">
+        <div className="bg-white text-blue-950 h-screen w-64 flex flex-col fixed z-10 mt-16 shadow-lg">
             <div className="p-4">
                 {/* <h1 className="text-2xl font-bold"></h1> */}
             </div>
-            <ul className="flex flex-col flex-grow p-2 gap-2 text-lg">
-                <Link to="/dashboard" className={`p-2 ${isActive('/dashboard') ? 'bg-slate-700' : 'hover:bg-slate-500'} rounded-xl hover:cursor-pointer flex flex-row gap-2`}>
-                    {isActive('/dashboard') ? <ChartPieIcon className="size-6" /> : <ChatPieIconOutline className="size-6" />}
+            <ul className="flex flex-col flex-grow p-2 gap-2 text-md">
+                <Link to="/dashboard" className={`p-2 ${isActive('/dashboard') ? 'bg-green-500' : 'hover:bg-slate-200'} rounded-xl hover:cursor-pointer flex flex-row gap-2`}>
+                    {isActive('/dashboard') ? <ChartPieIcon className="size-6" /> : <ChatPieIconOutline className="size-6 text-gray-500" />}
                     Dashboard
                 </Link>
-                <Link to='/dashboard/profile' className={`p-2 ${isActive('/dashboard/profile') ? 'bg-slate-700' : 'hover:bg-slate-500'} rounded-xl hover:cursor-pointer flex flex-row gap-2`}>
+                <Link to='/dashboard/profile' className={`p-2 ${isActive('/dashboard/profile') ? 'bg-green-500' : 'hover:bg-slate-200'} rounded-xl hover:cursor-pointer flex flex-row gap-2`}>
                     {isActive('/dashboard/profile') ? <UsersIcon className="size-6" /> : <UsersIconOutline className="size-6" />}
                     profile
                 </Link>         
-                <Link to='/dashboard/accounts' className={`p-2 ${isActive('/dashboard/accounts') ? 'bg-slate-700' : 'hover:bg-slate-500'} rounded-xl hover:cursor-pointer flex flex-row gap-2`}>
+                <Link to='/dashboard/postproperty' className={`p-2 ${isActive('/dashboard/accounts') ? 'bg-green-500' : 'hover:bg-slate-200'} rounded-xl hover:cursor-pointer flex flex-row gap-2`}>
                     {isActive('/dashboard/postproperty') ? <BanknotesIcon className="size-6" /> : <BanknotesIconOutline className="size-6" />}
                     Post Property
                 </Link>            
-                <Link to='/dashboard/transactions' className={`p-2 ${isActive('/dashboard/transactions') ? 'bg-slate-700' : 'hover:bg-slate-500'} rounded-xl hover:cursor-pointer flex flex-row gap-2`}>
+                <Link to='/dashboard/transactions' className={`p-2 ${isActive('/dashboard/transactions') ? 'bg-green-500' : 'hover:bg-slate-200'} rounded-xl hover:cursor-pointer flex flex-row gap-2`}>
                     {isActive('/dashboard/transactions') ? <UserPlusIcon className="size-6" /> : <UserPlusIconOutline className="size-6" />}
                     Transactions
                 </Link>                
