@@ -7,7 +7,7 @@ export default function DashboardHeader() {
   const user = currentUser.user
 
   return (
-    <nav className='w-full bg-blue-950 font-poppins'>
+    <nav className='w-full bg-blue-950 font-poppins fixed z-'>
       <div className="flex items-center justify-between p-4">
         <div className="flex items-center space-x-4">
           <Link to="/" className="text-green-500 text-2xl font-bold font-ams hover:underline">The Rental Hub</Link>

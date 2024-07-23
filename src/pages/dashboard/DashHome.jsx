@@ -3,11 +3,11 @@ import { useEffect } from "react";
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
 import { Doughnut } from "react-chartjs-2";
 
-ChartJS.register(ArcElement, Tooltip, Legend);
 
 export default function DashHome() {
   const [count, setCount] = useState(0);
-
+  ChartJS.register(ArcElement, Tooltip, Legend);
+  
   useEffect(() => {
     // Set up an interval to increment the count
     const interval = setInterval(() => {
@@ -47,7 +47,7 @@ export default function DashHome() {
           </p>
         </div>
       </div>
-      <div className="flex justify-evenly">
+      <div className="flex justify-evenly w-full">
         <div className="w-1/2">
           <Doughnut data={
             {
@@ -93,6 +93,15 @@ export default function DashHome() {
                   borderWidth: 1,
                 },
               ],
+            }
+          } options={
+            {
+              plugins: {
+                responsive: true,
+                legend: {
+                  display: true,
+                },
+              },
             }
           } />
         </div>
