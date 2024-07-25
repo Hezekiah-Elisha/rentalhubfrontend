@@ -3,17 +3,23 @@ import { instance } from '../api'
 import { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { signupStart, signupSuccess, signupFailure } from '../redux/user/userSlice'
+import {
+  EyeIcon,
+  EyeSlashIcon,
+} from '@heroicons/react/24/solid'
 
 export default function SignupPage() {
   const [formData, setFormData] = useState({})
   const { loading, error } = useSelector((state) => state.user)
   const [hasSubmitted, setHasSubmitted] = useState(false);
-    const dispatch = useDispatch()
-    const navigate = useNavigate()
+  const dispatch = useDispatch()
+  const navigate = useNavigate()
+  const [showPassword, setShowPassword] = useState(false)
 
-    const handleChange = async (e) => {
-        setFormData({ ...formData, [e.target.id]: e.target.value })
-    }
+
+  const handleChange = async (e) => {
+    setFormData({ ...formData, [e.target.id]: e.target.value })
+  }
 
     const handleSubmit = async (e) => {
         e.preventDefault()
@@ -33,15 +39,24 @@ export default function SignupPage() {
         }
     }
 
+    const handleShowPassword = () => {
+        setShowPassword(!showPassword)
+    }
+
     return (
         <div className='font-poppins flex flex-col-reverse md:flex-row'>
           <div className="p-3 mx-auto md:w-1/2 flex flex-col">
             <h1 className="text-3xl text-center font-semibold my-7 uppercase">Sign Up</h1>
             <form onSubmit={handleSubmit} className="flex flex-col gap-4 md:w-4/5 m-auto">
-              <input type="text" onChange={handleChange} placeholder='Full Name' id='name' className="bg-slate-100 p-3 rounded-lg" />
-              <input type="email" placeholder="email" onChange={handleChange} id="email" className="bg-slate-100 p-3 rounded-lg" />
-              <input type="password" placeholder="Password" onChange={handleChange} id="password" className="bg-slate-100 p-3 rounded-lg" />
-              <button className="bg-blue-950 text-white p-3 rounded-lg uppercase hover:opacity-95 disabled:opacity-55">
+              <input type="text" onChange={handleChange} placeholder='Full Name' id='name' className="bg-slate-100 p-3 rounded-lg" required />
+              <input type="email" placeholder="email" onChange={handleChange} id="email" className="bg-slate-100 p-3 rounded-lg" required />
+              <div className='flex flex-row items-center gap-2 w-full'>
+                <input onChange={handleChange} type={showPassword ? 'text' : 'password'} placeholder='Password' id='password' className='bg-slate-100 p-3 rounded-lg w-full' required />
+                <button type='button' onClick={handleShowPassword}>
+                  {showPassword ? <EyeSlashIcon width='24' height='24' /> : <EyeIcon width='24' height='24' />}
+                </button>
+              </div>              
+            <button className="bg-blue-950 text-white p-3 rounded-lg uppercase hover:opacity-95 disabled:opacity-55">
               { loading ? 'Loading...' : 'Sign Up'}
               </button>
               {error  && hasSubmitted && <p className="text-red-500 mt-5">{error}</p>}
