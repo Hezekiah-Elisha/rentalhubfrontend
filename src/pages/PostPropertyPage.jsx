@@ -5,6 +5,7 @@ import { instance } from '../api';
 import { createPropertyStart, createPropertyFailure, createPropertySuccess } from '../redux/properties/singlePropertySlice';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
+import FloatingNotification from '../components/FloatingNotification';
 
 export default function PostPropertyPage() {
     const [formData, setFormData] = useState({});
@@ -14,6 +15,7 @@ export default function PostPropertyPage() {
     const [modalIsOpen, setModalIsOpen] = useState(false);
     const navigate = useNavigate();
     const dispatch = useDispatch();
+    const [hasSubmitted, setHasSubmitted] = useState(false);
 
     useEffect(() => {
         instance.defaults.headers.common['Authorization'] = `Bearer ${localStorage.getItem('token')}`;
@@ -45,28 +47,52 @@ export default function PostPropertyPage() {
         }
     }
 
+    const handleSubmitted = () => {
+        setHasSubmitted(true);
+    }
+
   return (
-    <div className='font-poppins w-full px-10'>
-        <Modal
+    <div className='font-poppins w-full px-10 flex flex-col gap-2 align-middle justify-center'>
+        {/* <Modal
             title='Review'
-            content='Are you sure you want to place this property for review?'
+            content={
+                <>
+                <p>
+                    Are you sure you want to place this property for review?
+                </p>
+                <button onClick={handleSubmitted} className='bg-blue-950 text-white p-2 rounded-md'>Yes</button>
+                <button onClick={() => setModalIsOpen(false)} className='bg-red-500 text-white p-2 rounded-md'>No</button>
+                </>
+
+            }
             isVisible={modalIsOpen}
             onClose={() => setModalIsOpen(false)}
-        />
+        /> */}
+        <FloatingNotification isVisible={true} onClose={() => {}} message='Property has been submitted for review' icon={<CheckCircleIcon className='size-12 text-green-500' />} />
         <h1 className='text-3xl text-center font-ams underline p-2'>Post Property</h1>
-        <form onSubmit={handleSubmit} encType='multipart/form-data' className='flex flex-col gap-4 w-full'>
+        <form onSubmit={handleSubmit} encType='multipart/form-data' className='flex justify-center align-middle flex-col gap-4 w-1/2'>
             <div className='flex flex-col gap-2'>
                 <label htmlFor='title' className='text-2xl'>Title</label>
                 <input type='text' name='title' onChange={handleChange} id='title' className='p-2 border border-none rounded-md bg-slate-200 focus:outline-none' placeholder='Title here...'/>
             </div>
             <div className='flex flex-col gap-2'>
-                <label htmlFor='category' className='text-2xl'>Category</label>
-                <select name='category' onChange={handleChange} id='category' className='p-2 border border-none rounded-md bg-slate-200 focus:outline-none'>
-                    <option value=''>Select Category</option>
-                    {categories.map((category) => (
-                        <option key={category.category_id} value={category.category_id}>{category.name}</option>
-                    ))}
-                </select>
+                <label htmlFor='image' className=' text-2xl'>Image</label>
+                <input type='file' name='image' onChange={handleChange} id='image' className='p-2 border border-none rounded-md bg-slate-200 focus:outline-none' accept='image/jpeg, image/png, image/jpg' />
+            </div>
+            <div className='flex flex-row justify-evenly'>
+                <div className='flex flex-col gap-2'>
+                    <label htmlFor='category' className='text-2xl'>Category</label>
+                    <select name='category' onChange={handleChange} id='category' className='p-2 border border-none rounded-md bg-slate-200 focus:outline-none'>
+                        <option value=''>Select Category</option>
+                        {categories.map((category) => (
+                            <option key={category.category_id} value={category.category_id}>{category.name}</option>
+                        ))}
+                    </select>
+                </div>
+                <div className='flex flex-col gap-2'>
+                    <label htmlFor='price' className=' text-2xl'>Price</label>
+                    <input type='number' name='price' onChange={handleChange} id='price' className='p-2 border border-none rounded-md bg-slate-200 focus:outline-none' placeholder='How much is a unit'/>
+                </div>
             </div>
             <div className='flex flex-col gap-2'>
                 <label htmlFor='description' className=' text-2xl'>Description</label>
@@ -77,16 +103,8 @@ export default function PostPropertyPage() {
                 <textarea name='features' onChange={handleChange} id='features' className='p-2 border border-none rounded-md bg-slate-200 focus:outline-none' placeholder='Features here'></textarea>
             </div>
             <div className='flex flex-col gap-2'>
-                <label htmlFor='price' className=' text-2xl'>Price</label>
-                <input type='number' name='price' onChange={handleChange} id='price' className='p-2 border border-none rounded-md bg-slate-200 focus:outline-none' placeholder='How much is a unit'/>
-            </div>
-            <div className='flex flex-col gap-2'>
                 <label htmlFor='location' className=' text-2xl'>Location</label>
                 <input type='text' name='location' onChange={handleChange} id='location' className='p-2 border border-none rounded-md bg-slate-200 focus:outline-none' placeholder='Where is it?'/>
-            </div>
-            <div className='flex flex-col gap-2'>
-                <label htmlFor='image' className=' text-2xl'>Image</label>
-                <input type='file' name='image' onChange={handleChange} id='image' className='p-2 border border-none rounded-md bg-slate-200 focus:outline-none'/>
             </div>
             <div className='flex flex-col gap-2'>
                 <button className='bg-blue-950 text-white p-2 rounded-md'onClick={() => setModalIsOpen(true)} >Place for review</button>

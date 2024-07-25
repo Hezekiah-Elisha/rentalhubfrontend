@@ -33,7 +33,7 @@ export default function MainComponent() {
                 <Route path='/signin' element={<LoginPage/>}/>
                 <Route path='/signup' element={<SignupPage/>}/>
                 <Route path='/dashboard' element={<DashboardPage/>}>
-                    <Route path='home' element={<DashHome/>}/>
+                    <Route index element={<DashHome/>}/>
                     <Route path='*' element={<NotFound/>}/>
                     <Route path='postproperty' element={<PostPropertyPage/>}/>
                     <Route path='profile' element={<ProfilePage/>}/>

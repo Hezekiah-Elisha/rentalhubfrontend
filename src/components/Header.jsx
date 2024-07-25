@@ -31,7 +31,7 @@ export default function Header() {
         </div>
 
   const loggedInLinks = <div className="flex gap-2">
-          <Link to="/dashboard/home" className="hover:underline">
+          <Link to="/dashboard" className="hover:underline">
             Dashboard
           </Link>
           <p onClick={tologout} className="hover:cursor-pointer hover:underline">

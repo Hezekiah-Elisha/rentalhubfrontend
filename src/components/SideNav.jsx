@@ -1,7 +1,7 @@
 import { ChartPieIcon, UserPlusIcon, UsersIcon, BanknotesIcon, TagIcon } from "@heroicons/react/24/solid";
 import { 
     ChartPieIcon as ChatPieIconOutline,
-    UserPlusIcon as UserPlusIconOutline,
+    // UserPlusIcon as UserPlusIconOutline,
     UsersIcon as UsersIconOutline,
     BanknotesIcon as BanknotesIconOutline,
     TagIcon as TagIconOutline
