@@ -68,7 +68,7 @@ export default function PostPropertyPage() {
             isVisible={modalIsOpen}
             onClose={() => setModalIsOpen(false)}
         /> */}
-        <FloatingNotification isVisible={true} onClose={() => {}} message='Property has been submitted for review' icon={<CheckCircleIcon className='size-12 text-green-500' />} />
+        <FloatingNotification myinfo='Property has been submitted for review' icon={<CheckCircleIcon className='size-12 text-green-500' />} />
         <h1 className='text-3xl text-center font-ams underline p-2'>Post Property</h1>
         <form onSubmit={handleSubmit} encType='multipart/form-data' className='flex justify-center align-middle flex-col gap-4 w-1/2'>
             <div className='flex flex-col gap-2'>

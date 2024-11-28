@@ -1,41 +1,44 @@
-import { useEffect } from 'react';
-import PropTypes from 'prop-types';
-import AOS from 'aos';
-import 'aos/dist/aos.css';
+import { useEffect, useState } from "react";
+import PropTypes from "prop-types";
+import AOS from "aos";
+import "aos/dist/aos.css";
 
 FloatingNotification.propTypes = {
-  isVisible: PropTypes.bool.isRequired,
-  setIsVisible: PropTypes.func.isRequired,
+  myInfo: PropTypes.string.isRequired,
+  icon: PropTypes.element.isRequired,
 };
 
-export default function FloatingNotification({ isVisible, setIsVisible }) {
-    // const 
-  useEffect(() => {
+export default function FloatingNotification({ myInfo, icon }) {
+  const [isVisible, setIsVisible] = useState(true);
 
+  useEffect(() => {
     // Initialize AOS
     AOS.init({
-        duration: 1000,
+      duration: 1000,
     });
-    // Set the notification to disappear after 5 seconds (5000 milliseconds)
+
+    // Set the notification to disappear after 3 seconds (3000 milliseconds)
     const timer = setTimeout(() => {
       setIsVisible(false);
-    }, 5000); // Adjust time as needed
+    }, 3000); // Adjust time as needed
 
     // Cleanup the timer
     return () => clearTimeout(timer);
-  }, [setIsVisible]);
+  }, []);
 
   // Tailwind classes for animation
-  const visibilityClass = isVisible ? 'opacity-100' : 'opacity-0';
-  const transitionClass = 'transition-opacity duration-1000 ease-in-out';
+  const className = `${
+    isVisible ? "opacity-100 translate-x-0" : "opacity-0 translate-x-full"
+  } transition-all duration-1000 ease-in-out fixed top-20 right-5 bg-slate-100 bg-opacity-70 text-white px-4 p-4 shadow-2xl rounded-md z-50 border-t-8 border-green-500`;
 
   return (
-    <div className={`${visibilityClass} ${transitionClass} fixed top-20 right-5 bg-slate-100 bg-opacity-70 text-white px-4 p-4 shadow-2xl rounded-md z-50 border-t-8 border-green-500`} data-aos="fade-left">
-      <div className='font-ams text-black'>
-        This is a floating notification
+    <div className={className} data-aos="fade-left">
+      <div className="flex items-center gap-2">
+        <div>{icon}</div>
+        <div className="flex items-center justify-center bg-green-500 rounded-full p-2">
+          {myInfo}
+        </div>
       </div>
     </div>
   );
 }
-
-

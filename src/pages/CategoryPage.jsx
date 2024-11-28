@@ -10,12 +10,13 @@ export default function CategoryPage() {
     const [categories, setCategories] = useState([]);
     const { currentUser } = useSelector((state) => state.user);
 
+
     useEffect(() => {
         const fetchCategories = async () => {
             const config = {
                 headers: {
                     'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${currentUser.user.access_token}`
+                    'Authorization': `Bearer ${currentUser.access_token}`
                 }
             }
             try {
@@ -36,7 +37,7 @@ export default function CategoryPage() {
         const config = {
             headers: {
                 'Content-Type': 'application/json',
-                'Authorization': `Bearer ${currentUser.user.access_token}`
+                'Authorization': `Bearer ${currentUser.access_token}`
             }
         }
 
@@ -54,7 +55,7 @@ export default function CategoryPage() {
         const config = {
             headers: {
                 'Content-Type': 'application/json',
-                'Authorization': `Bearer ${currentUser.user.access_token}`
+                'Authorization': `Bearer ${currentUser.access_token}`
             }
         }
         try {
@@ -109,20 +110,25 @@ export default function CategoryPage() {
             />
         </div>
         <div>
-            <table className="w-full">
-                <thead>
+            <table className="w-full border-collapse border rounded-3xl border-gray-300 shadow-lg">
+                <thead className="bg-gray-200">
                     <tr>
-                        <th className="p-2">ID</th>
-                        <th className="p-2">Name</th>
-                        <th className="p-2">Description</th>
+                        <th className="p-4 border border-gray-300">ID</th>
+                        <th className="p-4 border border-gray-300">Name</th>
+                        <th className="p-4 border border-gray-300">Description</th>
+                        <th className='p-4 border border-gray-300'>Actions</th>
                     </tr>
                 </thead>
                 <tbody>
                     {categories.map((category) => (
-                        <tr key={category.category_id}>
-                            <td className="p-2">{category.category_id}</td>
-                            <td className="p-2">{category.name}</td>
-                            <td className="p-2">{category.description}</td>
+                        <tr key={category.id} className="hover:bg-gray-100">
+                            <td className="p-4 border border-gray-300">{category.category_id}</td>
+                            <td className="p-4 border border-gray-300">{category.name}</td>
+                            <td className="p-4 border border-gray-300">{category.description}</td>
+                            <td className="p-4 border border-gray-300">
+                                <button className="bg-blue-500 text-white p-2 rounded-md hover:bg-blue-600">Edit</button>
+                                <button className="bg-red-500 text-white p-2 rounded-md hover:bg-red-600">Delete</button>
+                            </td>
                         </tr>
                     ))}
                 </tbody>
